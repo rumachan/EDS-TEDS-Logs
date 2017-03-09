@@ -11,7 +11,7 @@ git clone  --depth=1  https://github.com/rumachan/EDS-TEDS-Logs.git
 Then build the docker image:
 
 ```
-cd EDS-TEDS-Logs.git
+cd EDS-TEDS-Logs
 docker build -t eds .
 ```
 The resulting docker container has three mount points that have to be mounted
