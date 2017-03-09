@@ -7,7 +7,6 @@ set base_dir = /home/volcano/sds
 set eds_dir = NZ/EDS/LOG.D
 set eds_file = NZ.EDS.02.LOG.D
 set out_dir = /home/volcano/workdir/eds_2
-set qm_dir = /usr/local/bin
 set webdir = /home/volcano/output
 
 set lockfile = /home/volcano/workdir/edslog_2.lock
@@ -37,7 +36,7 @@ if (! -e $datafile) then
 endif
 
 #convert log file to ascii and keep only system messages
-$qm_dir/qlog -o $out_dir/log $datafile
+./qlog -o $out_dir/log $datafile
 
 #which log messages
 #all

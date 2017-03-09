@@ -7,7 +7,6 @@ set base_dir = /home/volcano/sds
 set teds_dir = NZ/TEDS/LOG.D
 set teds_file = NZ.TEDS.02.LOG.D
 set out_dir = /home/volcano/workdir/teds_2
-set qm_dir = /usr/local/bin
 set webdir = /home/volcano/output
 
 set lockfile = /home/volcano/workdir/tedslog_2.lock
@@ -38,7 +37,7 @@ endif
 #echo $datafile
 
 #convert log file to ascii and keep only system messages
-$qm_dir/qlog -o $out_dir/log $datafile
+./qlog -o $out_dir/log $datafile
 
 #which log messages
 #all

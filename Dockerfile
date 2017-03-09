@@ -22,15 +22,13 @@ ENTRYPOINT ["tini", "--"]
 
 RUN groupadd -g 1260 -r volcano && useradd -m -s /bin/bash -r -g volcano -u 1260 volcano
 
-COPY qlog /usr/local/bin
-RUN chmod a+x /usr/local/bin/qlog
-
 USER volcano
 WORKDIR /home/volcano
 
 VOLUME ["/home/volcano/output"]
 VOLUME ["/home/volcano/sds"]
 VOLUME ["/home/volcano/workdir"]
+COPY qlog /home/volcano
 COPY edslog_1.csh /home/volcano/
 COPY edslog_2.csh /home/volcano/
 COPY tedslog_2.csh /home/volcano/
