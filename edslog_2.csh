@@ -10,6 +10,15 @@ set out_dir = /home/volcano/workdir/eds_2
 set qm_dir = /usr/local/bin
 set webdir = /home/volcano/output
 
+set lockfile = /home/volcano/workdir/edslog_2.lock
+
+if (-e $lockfile) then
+	echo Another instance of this script is still running
+	exit
+endif
+
+touch $lockfile
+
 mkdir -p $out_dir
 #use curent date
 set date = `date -u +"%Y%m%d"`
@@ -62,3 +71,4 @@ head -500 $out_dir/temp2 >! $out_dir/noisy500
 \rm $out_dir/temp $out_dir/temp2
 #web page
 \cp $out_dir/noisy500 $webdir/eds2_noisy500.txt
+rm $lockfile
