@@ -28,7 +28,7 @@ WORKDIR /home/volcano
 VOLUME ["/home/volcano/output"]
 VOLUME ["/home/volcano/sds"]
 VOLUME ["/home/volcano/workdir"]
-COPY qlog /home/volcano
+COPY qlog /home/volcano/
 COPY edslog_1.csh /home/volcano/
 COPY edslog_2.csh /home/volcano/
 COPY tedslog_2.csh /home/volcano/
