@@ -41,3 +41,11 @@ Afterwards you will only have to start the container:
 docker start teds
 ```
 In the same way you can create containers for the `edslog_1.csh` and `edslog_2.csh` scripts.
+
+
+**Note**: If the SDS archive is mounted using NFS, the NFS mount has to happen before the start of the docker daemon (at least with older versions of docker). In case of a remount of the NFS drive the docker daemon therefore has to be restarted:
+
+```
+sudo service docker restart
+```
+ 
