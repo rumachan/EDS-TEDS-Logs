@@ -3,12 +3,22 @@
 #display recent parts of teds log files on web page
 
 #important directories
-set base_dir = /geonet/seismic/sds
+set base_dir = /home/volcano/sds
 set teds_dir = NZ/TEDS/LOG.D
 set teds_file = NZ.TEDS.02.LOG.D
-set out_dir = /home/sherburn/geonet/edsteds_log/teds_2
-set web = volcano@volcano:/var/www/html/volcanoes/tongariro/tedslog_2
+set out_dir = /home/volcano/workdir/teds_2
+set webdir = /home/volcano/output
 
+set lockfile = /home/volcano/workdir/tedslog_2.lock
+
+if (-e $lockfile) then
+	echo Another instance of this script is still running
+	exit
+endif
+
+touch $lockfile
+
+mkdir -p $out_dir 
 #use curent date
 set date = `date -u +"%Y%m%d"`
 
@@ -27,7 +37,7 @@ endif
 #echo $datafile
 
 #convert log file to ascii and keep only system messages
-qlog -o $out_dir/log $datafile
+./qlog -o $out_dir/log $datafile
 
 #which log messages
 #all
@@ -42,7 +52,7 @@ sort -r $out_dir/temp | uniq >! $out_dir/temp2
 head -500 $out_dir/temp2 >! $out_dir/all500
 \rm $out_dir/temp $out_dir/temp2
 #web page
-scp $out_dir/all500 $web/all500.txt
+\cp $out_dir/all500 $webdir/teds2_all500.txt
 
 #last 500 messages trigger
 \cp $out_dir/trigger500 $out_dir/temp
@@ -51,7 +61,7 @@ sort -r $out_dir/temp | uniq >! $out_dir/temp2
 head -500 $out_dir/temp2 >! $out_dir/trigger500
 \rm $out_dir/temp $out_dir/temp2
 #web page
-scp $out_dir/trigger500 $web/trigger500.txt
+\cp $out_dir/trigger500 $webdir/teds2_trigger500.txt
 
 #last 500 messages noisy
 \cp $out_dir/noisy500 $out_dir/temp
@@ -60,4 +70,5 @@ sort -r $out_dir/temp | uniq >! $out_dir/temp2
 head -500 $out_dir/temp2 >! $out_dir/noisy500
 \rm $out_dir/temp $out_dir/temp2
 #web page
-scp $out_dir/noisy500 $web/noisy500.txt
+\cp $out_dir/noisy500 $webdir/teds2_noisy500.txt
+rm $lockfile
